@@ -9,15 +9,16 @@ datasource db {
 
 model User {
     id Int                           @id @default(autoincrement())
+    username String
     email String                     @unique
     quests Quest[]                   @relation("Quests")
-    templateQuests QuestTemplate[]   @relation("QuestTemplates")
+    questTemplates QuestTemplate[]   @relation("QuestTemplates")
     collections Collection[]         @relation("UserCollections")
 }
 
 model QuestTemplate {
     id Int                           @id @default(autoincrement())
-    public Boolean
+    open Boolean
     circles CircleTemplate[]                @relation("CircleTemplates")
     name String
     description String
@@ -41,7 +42,7 @@ model Quest {
     circles Circle[]    @relation("Circles")
     owner User          @relation("Quests", fields: [ownerId], references: [id])
     ownerId Int
-    completed Boolean
+    completion Boolean
 }
 
 model Circle {
@@ -55,7 +56,7 @@ model Circle {
 
 model Collection {
     id Int              @id @default(autoincrement())
-    public Boolean
+    open Boolean
     name String
     description String
     quests QuestTemplate[]      @relation("Collections")
