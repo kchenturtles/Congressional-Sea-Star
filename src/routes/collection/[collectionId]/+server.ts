@@ -1,6 +1,17 @@
 import { json } from "@sveltejs/kit";
 import prismaClient from "$lib/database";
 
+export const GET = async ({ params }) => {
+  const collectionId = parseInt(params.collectionId);
+  const collection = await prismaClient.collection.findUnique({
+    where: {
+      id: collectionId,
+    },
+    include: { quests: { select: { id: true } } },
+  });
+  return json(collection);
+};
+
 export const PATCH = async ({ request, params }) => {
   const collectionId = parseInt(params.collectionId);
   const { open, quests, name, description, owner, ownerId } = await request.json();
