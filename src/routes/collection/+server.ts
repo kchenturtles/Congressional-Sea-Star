@@ -3,21 +3,23 @@ import { json } from "@sveltejs/kit";
 import prismaClient from "$lib/database";
 
 export const GET: RequestHandler = async () => {
-    const organizations = await prismaClient.organization.findMany();
-    return json(organizations);
+  const collections = await prismaClient.collection.findMany();
+  return json(collections);
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-    const { open, quests, name, description, owner, ownerId } = await request.json();
-    const organization = await prismaClient.organization.create({
-        data: {
-            open,
-            quests,
-            name,
-            description,
-            owner,
-            ownerId,
-        },
-    });
-    return json(organization, { status: 201 });
+  const { open, quests, name, description, ownerId } = await request.json();
+  const collection = await prismaClient.collection.create({
+    data: {
+      open,
+      quests: {
+        connectOrCreate: quests,
+      },
+      name,
+      description,
+      ownerId,
+    },
+    include: { quests: { select: { id: true } } },
+  });
+  return json(collection, { status: 201 });
 };

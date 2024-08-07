@@ -1,65 +1,65 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-    id Int                           @id @default(autoincrement())
-    username String
-    email String                     @unique
-    quests Quest[]                   @relation("Quests")
-    questTemplates QuestTemplate[]   @relation("QuestTemplates")
-    collections Collection[]         @relation("UserCollections")
+    id             Int             @id @default(autoincrement())
+    username       String
+    email          String          @unique
+    quests         Quest[]         @relation("Quests")
+    questTemplates QuestTemplate[] @relation("QuestTemplates")
+    collections    Collection[]    @relation("UserCollections")
 }
 
 model QuestTemplate {
-    id Int                           @id @default(autoincrement())
-    open Boolean
-    circles CircleTemplate[]                @relation("CircleTemplates")
-    name String
+    id          Int              @id @default(autoincrement())
+    open        Boolean
+    circles     CircleTemplate[] @relation("CircleTemplates")
+    name        String
     description String
-    owner User                      @relation("QuestTemplates", fields: [ownerId], references: [id])
-    ownerId Int
-    collections Collection[]        @relation("Collections")
+    owner       User             @relation("QuestTemplates", fields: [ownerId], references: [id])
+    ownerId     Int
+    collections Collection[]     @relation("Collections")
 }
 
 model CircleTemplate {
-    id Int                          @id @default(autoincrement())
-    questTemplate QuestTemplate     @relation("CircleTemplates", fields: [questTemplateId], references: [id])
+    id              Int           @id @default(autoincrement())
+    questTemplate   QuestTemplate @relation("CircleTemplates", fields: [questTemplateId], references: [id])
     questTemplateId Int
-    name String
-    content String
+    name            String
+    content         String
 }
 
 model Quest {
-    id Int              @id @default(autoincrement())
-    name String
+    id          Int      @id @default(autoincrement())
+    name        String
     description String
-    circles Circle[]    @relation("Circles")
-    owner User          @relation("Quests", fields: [ownerId], references: [id])
-    ownerId Int
-    completion Boolean
+    circles     Circle[] @relation("Circles")
+    owner       User     @relation("Quests", fields: [ownerId], references: [id])
+    ownerId     Int
+    completion  Boolean
 }
 
 model Circle {
-    id Int              @id @default(autoincrement())
-    name String
-    content String
-    quest Quest         @relation("Circles", fields: [questId], references: [id])
-    questId Int
+    id        Int     @id @default(autoincrement())
+    name      String
+    content   String
+    quest     Quest   @relation("Circles", fields: [questId], references: [id])
+    questId   Int
     completed Boolean
 }
 
 model Collection {
-    id Int              @id @default(autoincrement())
-    open Boolean
-    name String
+    id          Int             @id @default(autoincrement())
+    open        Boolean
+    name        String
     description String
-    quests QuestTemplate[]      @relation("Collections")
-    owner User                  @relation("UserCollections", fields: [ownerId], references: [id])
-    ownerId Int
+    quests      QuestTemplate[] @relation("Collections")
+    owner       User            @relation("UserCollections", fields: [ownerId], references: [id])
+    ownerId     Int
 }

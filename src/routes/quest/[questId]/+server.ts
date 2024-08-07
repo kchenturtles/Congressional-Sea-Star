@@ -6,7 +6,7 @@ export const GET = async ({ params }) => {
     const quest = await prismaClient.quest.findUnique({
         where: {
             id: questId,
-        },
+        }, include: { circles: { select: { id: true } } },
     });
     if (!quest) {
         return error(404, "quest not found");
@@ -25,20 +25,20 @@ export const PATCH = async ({ params, request }) => {
     if (!quest) {
         return error(404, "quest not found");
     }
-    await prismaClient.quest.update({
+    const updatedQuest = await prismaClient.quest.update({
         data: {
             name,
             description,
-            circles,
+            circles: {connectOrCreate: circles},
             owner,
             ownerId,
             completion,
         },
         where: {
             id: questId,
-        },
+        }, include: { circles: { select: { id: true } } },
     });
-    return json({ success: true });
+    return json(updatedQuest, { status: 201 });
 };
 
 export const DELETE = async ({ params }) => {
