@@ -10,7 +10,7 @@ export const GET = async () => {
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-  const { open, name, description, circles, ownerId, collections } = await request.json();
+  const { open, name, description, ownerId, circles, collections} = await request.json();
   const questTemplate = await prismaClient.questTemplate.create({
     data: {
       open,

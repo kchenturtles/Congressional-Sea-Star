@@ -4,11 +4,11 @@
     import Input from "$lib/components/Input.svelte";
     import Button from "$lib/components/Button.svelte";
     import type { QuestTemplate } from "@prisma/client";
-
+ 
     let questTemplate: QuestTemplate = {
         name: "",
         description: "",
-        open: false,
+        open: true,
         ownerId: 0,
         circles: [],
         collections: [],
@@ -44,7 +44,7 @@
         floating
         bind:value={questTemplate.description}
     />
-    <Input
+    <!-- <Input
         type="checkbox" 
         label="Open"
         id="open"
@@ -52,6 +52,6 @@
         required
         floating
         bind:checked={questTemplate.open}
-    />
+    /> -->
     <Button type="submit" on:click={handleSubmit}>Create</Button>
 </Form>
