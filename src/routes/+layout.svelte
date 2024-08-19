@@ -8,6 +8,7 @@
     import Nav from "$lib/components/Nav.svelte";
     
 </script>
+<div class="container mx-auto">
 <Nav />
 <div class="grow">
   <main class="mt-20 px-d py-8">
@@ -21,5 +22,5 @@
   <Alert />
 </main>
 </div>
-
+</div>
 <slot></slot>

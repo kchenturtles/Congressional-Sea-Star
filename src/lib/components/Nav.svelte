@@ -13,9 +13,10 @@
   let open = false
   let pages = [
     { name: 'Dashboard', href: '/' },
-    { name: 'Users', href: '/users' },
-    { name: 'Quests', href: '/quests' },
-    { name: 'Collections', href: '/collections' },
+    { name: 'Users', href: '/user' },
+    { name: 'Your Quests', href: '/quest' },
+    { name: 'Your Published Quests', href: '/questTemplate' },
+    { name: 'Collections', href: '/collection' },
   ]
 
   onMount(() => {
