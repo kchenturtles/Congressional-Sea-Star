@@ -1,31 +1,25 @@
-<h1>One Project in a Sea of Stars</h1>
-<p>This is supposed to be a navbar if you can't tell (and I wouldn't blame you if you couldn't)</p>
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/user">Users</a></li>
-        <li><a href="/quest">Quests</a></li>
-        <li><a href="collection">Collections</a></li>
-    </ul>
-</nav>
+<script lang="ts">
+    import { navigating } from "$app/stores";
+    import Footer from "$lib/components/Footer.svelte";
+    import { onMount } from "svelte";
+    import Alert from '$lib/components/Alert.svelte';
+    import progress from "$lib/client/progress";
+    import '$lib/app.css';
+    import Nav from "$lib/components/Nav.svelte";
+    
+</script>
+<Nav />
+<div class="grow">
+  <main class="mt-20 px-d py-8">
+    <h1>One Project in a Sea of Stars</h1>
+<div class="flex min-h-screen flex-col">
+    <div class="flex grow flex-col">
+      <slot />
+    </div>
+    <Footer />
+  </div>
+  <Alert />
+</main>
+</div>
 
 <slot></slot>
-
-<style>
-    nav {
-        background-color: #333;
-        color: white;
-        padding: 1rem;
-    }
-
-    nav ul {
-        display: flex;
-        justify-content: space-around;
-        list-style-type: none;
-    }
-
-    nav a {
-        color: white;
-        text-decoration: none;
-    }
-</style>
