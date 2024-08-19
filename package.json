@@ -13,7 +13,8 @@
 	},
 	"dependencies": {
 		"@auth/sveltekit": "^1.4.1",
-		"@prisma/client": "^5.7.1"
+		"@prisma/client": "^5.7.1",
+		"congressional-sea-star": "file:"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
